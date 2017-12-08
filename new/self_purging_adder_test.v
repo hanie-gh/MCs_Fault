@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module self_purging_adder_test();
+odule self_purging_adder_test();
     parameter adder_width=32;
     reg [adder_width-1:0] in1; 
     reg [adder_width-1:0] in2;    

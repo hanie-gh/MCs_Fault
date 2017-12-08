@@ -17,13 +17,13 @@
 
 
 module self_purging_adder(
-    in1, in2, cin, J, sum, cout);
+    clk, in1, in2, cin, J, sum, cout);
     parameter adder_width=32;
     parameter N=6;    
     parameter THR=4;  //Upper bound of (N+1)/2 
     input [adder_width-1:0] in1; 
     input [adder_width-1:0] in2;     
-    input cin, J;
+    input clk, cin, J;
     output [adder_width-1:0] sum; 
     output cout;
     wire [adder_width:0] cout_; 
@@ -32,7 +32,7 @@ module self_purging_adder(
     genvar i;
     generate
         for (i=0; i<adder_width; i=i+1)           
-            self_purging_full_adder fa(in1[i], in2[i], cout_[i], J, sum[i], cout_[i+1]);
+            self_purging_full_adder fa(clk, in1[i], in2[i], cout_[i], J, sum[i], cout_[i+1]);
     endgenerate
     assign cout=cout_[adder_width]; 
    

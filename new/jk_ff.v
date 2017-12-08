@@ -7,25 +7,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module jk_ff(
-    J, K, Q);
-    input J, K;
+    clk, J, K, Q);
+    input clk, J, K;
     output Q;
+    reg Q;
 
-    assign Q = ({J, K}==2'b01)? 0  :
+/*    assign Q = ({J, K}==2'b01)? 0  :
                ({J, K}==2'b10)? 1  :
                ({J, K}==2'b11)? ~Q :
-               ({J, K}==2'b00)? Q : 0;  
+               ({J, K}==2'b00)? Q : 0; */ 
 // ** synchronous with clk
-//always @ (posedge(clk))
-//    begin
-//        case({J,K})
-//        2'b00: Q=Q;
-//        2'b01: Q=0;
-//        2'b10: Q=1;
-//        2'b11: Q=~Q;
-//        default : Q=0;    
-//        endcase
-//    end
+always @ (posedge(clk))
+    begin
+        case({J,K})
+        2'b00: Q=Q;
+        2'b01: Q=0;
+        2'b10: Q=1;
+        2'b11: Q=~Q;
+        default : Q=0;    
+        endcase
+    end
                   
 endmodule
  

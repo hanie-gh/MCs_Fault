@@ -16,10 +16,10 @@
 
 
 module self_purging_full_adder(
-    in1, in2, cin, J, sum, cout);
+    clk, in1, in2, cin, J, sum, cout);
     parameter N=6;
     parameter THR=4;  //Upper bound of (N+1)/2 
-    input in1, in2, cin, J;
+    input in1, in2, cin, J, clk;
     output sum, cout;
     wire [N-1:0] sum_, cout_;
     wire [N-1:0] sum__, cout__;
@@ -31,7 +31,7 @@ module self_purging_full_adder(
             // N module
             full_adder fa(in1, in2, cin, sum_[i], cout_[i]);
             // Switch component  
-            jk_ff jk_ff_m (J, K[i], Q[i]);             
+            jk_ff jk_ff_m (clk, J, K[i], Q[i]);             
             and g1 (sum__[i] ,sum_[i], Q[i]);
             and g2 (cout__[i] ,cout_[i], Q[i]);
             xor g3 (Es[i], sum__[i], sum);
