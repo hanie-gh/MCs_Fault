@@ -26,20 +26,32 @@ odule self_purging_adder_test();
     
     #100
     J=0;
-    in1=4;
-    in2=6;
-    cin=0;
+    in1=1;
+    in2=1;
+    cin=1;
     #100
     in1=2;
-    in2=3;
-    cin=0;  
+    in2=2;
+    cin=0; 
     #100
-    in1=10;
-    in2=20;
+    in1=4;
+    in2=4;
     cin=0;
     #100
+    in1=8;
+    in2=8;
+    cin=0;        
+    #100
     in1=16;
+    in2=16;
+    cin=0;  
+    #100
+    in1=32;
     in2=32;
+    cin=0;
+    #100
+    in1=64;
+    in2=64;
     cin=0; 
     #100  
     $finish;  

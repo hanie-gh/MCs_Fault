@@ -15,6 +15,7 @@ module sift_out_full_adder(
     parameter N=3;
     input in1, in2, cin, K, clk;
     output sum, cout;
+
     wire m12, m13, m23;
     wire m12_or, m13_or, m23_or;
     wire [N-1:0] sum_, cout_;
@@ -23,18 +24,18 @@ module sift_out_full_adder(
 
     wire m12_c, m13_c, m23_c;
     wire m12_or_c, m13_or_c, m23_or_c;
-    wire [N-1:0] sum_c, cout_c;
     wire f1_c, f2_c, f3_c;
     wire q1_c, q2_c, q3_c;
 
     full_adder fa1(in1, in2, cin, sum_[0], cout_[0]);
     full_adder fa2(in1, in2, cin, sum_[1], cout_[1]);
     full_adder fa3(in1, in2, cin, sum_[2], cout_[2]);
+
     // **sum**
     // comprator
     xor g1 (m12, sum_[0], sum_[1]);
-    xor g2 (m23, sum_[2], sum_[3]);
-    xor g3 (m13, sum_[0], sum_[3]);
+    xor g2 (m23, sum_[1], sum_[2]);
+    xor g3 (m13, sum_[2], sum_[0]);
     // detector
     or  g4 (m12_or, m12, q1, q2);
     or  g5 (m23_or, m23, q2, q3);
@@ -54,8 +55,8 @@ module sift_out_full_adder(
     // **cout**
     // comprator
     xor g1_c (m12_c, cout_[0], cout_[1]);
-    xor g2_c (m23_c, cout_[2], cout_[3]);
-    xor g3_c (m13_c, cout_[0], cout_[3]);
+    xor g2_c (m23_c, cout_[1], cout_[2]);
+    xor g3_c (m13_c, cout_[2], cout_[0]);
     // detector
     or  g4_c (m12_or_c, m12_c, q1_c, q2_c);
     or  g5_c (m23_or_c, m23_c, q2_c, q3_c);
@@ -70,5 +71,5 @@ module sift_out_full_adder(
     or  g10_c (m1_c, f1_c, cout_[0]);            
     or  g11_c (m2_c, f2_c, cout_[1]);            
     or  g12_c (m3_c, f3_c, cout_[2]);            
-    and g13_c (cout, m1, m2, m3);
+    and g13_c (cout, m1_c, m2_c, m3_c);
 endmodule
